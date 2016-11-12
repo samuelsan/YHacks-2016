@@ -9,6 +9,7 @@ export class Leaf {
   x: number;
   y: number;
   rotation: number;
+  zIn: number;
 }
 
 @Component({
@@ -25,7 +26,7 @@ export class Leaf {
     .leaves{
       position: absolute;
       height: 100px;
-      opacity: 0.5;
+      opacity: 0.4;
     }
   `],
   animations: [
@@ -55,6 +56,6 @@ export class LeafComponent {
     this.left = Math.round(this.x) + "px";
     this.top = Math.round(this.y) + "px";
     this.rotationStyle = "rotate(" + Math.round(this.rotation) + "deg)";
-    this.zInStyle = this.zIn + "";
+    this.zInStyle = Math.round(this.zIn) + "";
   }
 }
