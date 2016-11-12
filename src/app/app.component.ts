@@ -69,12 +69,14 @@ export class AppComponent {
     ];
 
     for(var i = 0; i < branchPoints.length; i++) {
-      for (var r : any = 50; r >= 0; r -= 10) {
-        for (var theta: any = 0; theta < 2 * Math.PI; theta += Math.PI / 12) {
+      for (var r : any = 100; r >= 0; r -= 10) {
+        for (var theta: any = 0; theta < 2 * Math.PI; theta += Math.PI / 16) {
           var p:any = branchPoints[i];
-          var x = this.tree.treeSide + p.x + r * Math.cos(theta);
-          var y = this.tree.treeTop + p.y + r * Math.sin(theta);
-          var leaf:Leaf = {x:x, y:y};
+          var x = this.tree.treeSide + p.x + r * Math.cos(theta) - 30;
+          var y = this.tree.treeTop + p.y + r * Math.sin(theta) - 50;
+          var rotation = Math.random() * 360;
+          var zIn = Math.random() * 10;
+          var leaf:Leaf = {x: x, y: y, rotation: rotation, zIn: zIn};
           this.leaves.push(leaf);
         }
       }

@@ -8,17 +8,26 @@ import { Component, Input, OnInit,
 export class Leaf {
   x: number;
   y: number;
+  rotation: number;
 }
 
 @Component({
   selector: 'leaf',
   template: `
     <img class="leaves"
-      [style.border]="'1px solid red'"
       [style.top]="top"
       [style.left]="left"
+      [style.transform]="rotationStyle"
+      [style.z-index]="zInStyle"
       src="../assets/leaf.png"/>
     `,
+  styles: [`
+    .leaves{
+      position: absolute;
+      height: 100px;
+      opacity: 0.5;
+    }
+  `],
   animations: [
     trigger('isFalling', [
       state('fallen', style({
@@ -35,15 +44,17 @@ export class Leaf {
 export class LeafComponent {
   @Input() x: number;
   @Input() y: number;
+  @Input() rotation: number;
+  @Input() zIn: number;
   left: string;
   top: string;
+  rotationStyle: string;
+  zInStyle: string;
   ngOnInit () {
     // spawn the leaf at the correct x, y position
-    this.left = Math.round(this.x) + " px";
-    this.top = Math.round(this.y) + " px";
-    //console.log(this.x);
-    //console.log(this.y);
-    console.log(this.left);
-    console.log(this.top);
+    this.left = Math.round(this.x) + "px";
+    this.top = Math.round(this.y) + "px";
+    this.rotationStyle = "rotate(" + Math.round(this.rotation) + "deg)";
+    this.zInStyle = this.zIn + "";
   }
 }
