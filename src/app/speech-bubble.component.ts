@@ -4,7 +4,7 @@ import { Component, Input } from '@angular/core'
   selector: 'speech-bubble',
   template: `
     <div class="bubble">
-      <owl-img [mood]="owlMood" [type]="'talking'"></owl-img>
+      <owl-img [mood]="owlMood"></owl-img>
       <h4 class="dialogue">Orwell: {{dialogue}}</h4>
     </div>
   `,
