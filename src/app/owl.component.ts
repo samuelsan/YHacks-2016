@@ -1,5 +1,4 @@
-import { Component, Input } from '@angular/core';
-import { Owl } from './owl'
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'owl-img',
@@ -13,11 +12,21 @@ import { Owl } from './owl'
       top: 282px;
       left: 607px;
     }
+    #owl-talking {
+      height: 250px;
+      position: relative;
+      top: 15px;
+      left: 0px;
+      right: 0px;
+    }
   `]
 })
 
 export class OwlComponent {
-  name = "Bill";
   @Input() mood: string;
   @Input() type: string;
+
+  ngOnInit() {
+    setInterval(this.startTalking, 100)
+  }
 }

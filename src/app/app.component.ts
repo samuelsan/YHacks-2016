@@ -7,5 +7,11 @@ import { Component, AfterViewInit } from '@angular/core';
 })
 
 export class AppComponent {
-
+  owlMood: string;
+  constructor() {
+    this.owlMood = "happy";
+  }
+  setOwlMood(owlMood: string): void {
+    this.owlMood = owlMood;
+  }
 }

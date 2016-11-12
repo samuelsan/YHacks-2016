@@ -5,11 +5,13 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { OwlComponent } from './owl.component';
+import { SpeechBubbleComponent } from './speech-bubble.component'
 
 @NgModule({
   declarations: [
     AppComponent,
-    OwlComponent
+    OwlComponent,
+    SpeechBubbleComponent
   ],
   imports: [
     BrowserModule,
