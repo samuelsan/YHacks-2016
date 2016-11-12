@@ -1,13 +1,16 @@
-#canvas {
-  z-index: 1000;
-  border:1px solid #000000;
-}
 #tree {
   position: absolute;
+  z-index: -1;
   left: 0;
   right: 0;
   top: 50%;
   transform: translateY(-50%);
   margin-left: auto;
   margin-right: auto;
+}
+#owl-avatar {
+  height: 50px;
+  position: absolute;
+  top: 282px;
+  left: 607px;
 }
