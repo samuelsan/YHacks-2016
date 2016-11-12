@@ -29,10 +29,10 @@ export class AppComponent implements AfterViewInit {
     ctx.canvas.width  = window.innerWidth;
     ctx.canvas.height = window.innerHeight;
 
-    window.addEventListener('click', function(evt) {
-      console.log(evt.clientX, evt.clientY);
-    }, false);
-    // change the height of the image to match
+    // window.addEventListener('click', function(evt) {
+    //   console.log(evt.clientX - c.offsetLeft - (tree.offsetLeft + tree.width / 2), evt.clientY - c.offsetTop - (tree.offsetTop)); // offsetTop actually gives center because top: 50%
+    // }, false);
+    // // change the height of the image to match
 
     var tree : any = document.getElementById("tree");
     tree.height = window.innerHeight - 250;
@@ -40,51 +40,76 @@ export class AppComponent implements AfterViewInit {
     var treeTop = tree.offsetTop;
     var treeSide = tree.offsetLeft;
 
-    ctx.beginPath();
-    ctx.scale(1.5, 1);
-    // console.log(treeSide + (tree.width / 2), treeTop + tree.height * (1/3))
-    ctx.arc((treeSide + (tree.width / 2)) / 1.5, treeTop - tree.height * (1/6), 150, 2 * Math.PI, false);
+    leaves = drawLeaves();
+    setInterval(fallLeaf(leaves), 1000);
 
-    // Draw each circle of leaves
-    for (var r : any = 150; r >= 0; r -= 50) {
-      // Draw each leaf
-      for (var theta : any = 0; theta < 2 * Math.PI; theta += Math.PI / 12) {
-        var imageObj : any = new Image();
-        imageObj.src = "../assets/leaf.png";
-
-        imageObj.data = {
-          x: (treeSide + (tree.width / 2)) / 1.5 + r * Math.cos(theta),
-          y: treeTop - tree.height * (1/6) + r * Math.sin(theta)
-        };
-
-        imageObj.onload = function() {
-          console.log(this.x, this.y);
-          ctx.restore();
-          ctx.scale(1.5, 1);
-          ctx.drawImage(this, this.data.x, this.data.y, 25, 35);
-          ctx.scale(1/1.5, 1);
-        };
-       // pick 5-10 leaves to omit from the outer circle
-       // otherwise fill the circle with leaves
-       // ctx.arc((treeSide + (tree.width / 2)) / 1.5, treeTop - tree.height * (1/6), 150, 2 * Math.PI, false);
-      }
+    function doneResizing() {
+      treeSide = tree.offsetLeft;
+      ctx.clearRect(0, 0, c.width, c.height);
+      ctx.canvas.width  = window.innerWidth;
+      ctx.canvas.height = window.innerHeight;
+      drawLeaves();
     }
 
+    var timer;
 
-    //ctx.restore();
-    ctx.stroke();
-    ctx.scale(1/1.5, 1);
-    ctx.save();
+    window.addEventListener('resize', function(e) {
+      clearTimeout(timer);
+      timer = setTimeout(doneResizing, 100); // throttling
+    });
 
-    // generate some leaves
-    var noOfLeaves = 60;
+    setInterval(fall)
 
-    var imageObj : any = new Image();
-    imageObj.src = "../assets/leaf.png";
-    //console.log(imageObj);
-    imageObj.onload = function() {
-      ctx.drawImage(imageObj, 0, 0, 35, 35);
-    };
-
+    function drawLeaves() {
+      var branchPoints = [
+        {x: -39.5, y: 2},
+        {x: -107.5, y: -20},
+        {x: -164.5, y: -75},
+        {x: -142.5, y: -129},
+        {x: -92.5, y: -194},
+        {x: -57.5, y: -163},
+        {x: -22.5, y: -146},
+        {x: -11.5, y: -163},
+        {x: 25.5, y: -167},
+        {x: 76.5, y: -148},
+        {x: 105.5, y: -103},
+        {x: 133.5, y: -85},
+        {x: 60.5, y: -27},
+        {x: 101.5, y: -20},
+        {x: -50.5, y: -58},
+        {x: 19.5, y: -57}
+      ];
+      leaves = [];
+      branchPoints.forEach(function(p) {
+        for (var r : any = 50; r >= 0; r -= 10) {
+          // Draw each leaf
+          for (var theta : any = 0; theta < 2 * Math.PI; theta += Math.PI / 12) {
+            var imageObj : any = new Image();
+            imageObj.src = "../assets/leaf.png";
+            imageObj.data = {
+              x: treeSide + tree.width / 2 + p.x + r * Math.cos(theta),
+              y: treeTop + p.y + r * Math.sin(theta)
+            };
+            imageObj.onload = function() {
+              console.log(this.x, this.y);
+              // ctx.save();
+              // ctx.translate(this.data.x, this.data.y)
+              // ctx.rotate(Math.random() * 2 * Math.PI);
+              ctx.drawImage(this, this.data.x, this.data.y, 35, 35);
+              // ctx.restore();
+            };
+            leaves.push(imageObj);
+          }
+        }
+      });
+      return leaves;
+    }
+    function fallLeaf() {
+      // pick a random leaf
+      var leaf = Math.floor(Math.random * leaves.size);
+      setInterval(leaf, 100) {
+        leaf.
+      }
+    }
   }
 }
