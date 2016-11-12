@@ -12,7 +12,7 @@ import { LeafComponent } from './leaf.component';
   declarations: [
     AppComponent,
     OwlComponent,
-    SpeechBubbleComponent
+    SpeechBubbleComponent,
     LeafComponent
   ],
   imports: [

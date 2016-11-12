@@ -20,6 +20,7 @@ export class AppComponent {
   }
   setOwlMood(owlMood: string): void {
     this.owlMood = owlMood;
+  }
   // leafSelector: LeafComponent;
   treeHeight: string;
   tree: Tree;

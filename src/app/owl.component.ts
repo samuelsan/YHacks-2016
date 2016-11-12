@@ -25,8 +25,4 @@ import { Component, Input, OnInit } from '@angular/core';
 export class OwlComponent {
   @Input() mood: string;
   @Input() type: string;
-
-  ngOnInit() {
-    setInterval(this.startTalking, 100)
-  }
 }
