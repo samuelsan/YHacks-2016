@@ -34,7 +34,7 @@ export class Leaf {
   animations: [
     trigger('isFalling', [
       state('true', style({
-        transform: 'translate(150px, 800px) rotateZ(360deg)'
+        transform: 'translate(270px, 760px) rotateZ(360deg)'
       })),
       state('false', style({})),
       transition('0 => 1', animate('3000ms ease-in'))

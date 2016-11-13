@@ -13,6 +13,7 @@ import { TransactionDetailsComponent } from './transaction-details.component';
 import { LoginComponent } from './login.component';
 import { TreePageComponent } from './tree-page.component';
 import { NavBarComponent } from './nav-bar.component';
+import { IconComponent } from './icon.component';
 
 
 // Must export the config
@@ -37,6 +38,7 @@ export const firebaseConfig = {
     LeafComponent,
     TransactionDetailsComponent,
     LoginComponent,
+    IconComponent,
     NavBarComponent,
     TreePageComponent
   ],
