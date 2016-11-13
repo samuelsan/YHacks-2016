@@ -146,7 +146,7 @@ export class TreePageComponent implements AfterViewInit {
 
         // happy, neutral, sad, crying
         var owlMoods = [0.25, 0.5, 0.75, 1];
-        var balanceStatus = this.leavesTotal - this.leavesFallen / this.leavesTotal;
+        var balanceStatus = (this.leavesTotal - this.leavesFallen) / this.leavesTotal;
         if(balanceStatus >= 0 && balanceStatus < owlMoods[0])
           this.owlMood = "happy";
         else if(balanceStatus >= owlMoods[0] && balanceStatus < owlMoods[1])
@@ -225,14 +225,6 @@ export class TreePageComponent implements AfterViewInit {
   ngAfterViewInit() {
     // push the transaction table programmatically below the page
     $(".details-box").css({top: window.innerHeight + 220});
-
-    // button for scrolling
-    // $(function() {
-  	// $('a[href*=#]').on('click', function(e) {
-  	// 	e.preventDefault();
-  	// 	$('html, body').animate({ scrollTop: $($(this).attr('href')).offset().top}, 500, 'linear');
-    // 	});
-    // });
 
     // on first login, want to display a short tutorial
     $(function(){
