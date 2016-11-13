@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LeafComponent, Leaf } from './leaf.component';
+import {AngularFire, FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2';
 
 export class Tree {
   treeRef: HTMLElement;
@@ -14,6 +15,15 @@ export class Tree {
 })
 
 export class AppComponent {
+  items: FirebaseListObservable<any[]>;
+  owlMood: string;
+  constructor(af: AngularFire) {
+    this.items = af.database.list('transactions/0');  // example for accessing first transaction
+    this.owlMood = "happy";
+  }
+  setOwlMood(owlMood: string): void {
+    this.owlMood = owlMood;
+  }
   // leafSelector: LeafComponent;
   treeHeight: string;
   tree: Tree;
