@@ -5,8 +5,7 @@
   right: 0;
   top: 50%;
   transform: translateY(-50%);
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: 700px;
 }
 #owl-avatar {
   height: 50px;

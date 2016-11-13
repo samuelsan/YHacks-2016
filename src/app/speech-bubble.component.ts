@@ -4,21 +4,29 @@ import { Component, Input } from '@angular/core'
   selector: 'speech-bubble',
   template: `
     <div class="bubble">
-      <owl-img [mood]="owlMood"></owl-img>
+      <img id="owl-avatar" src="../assets/happy-owl.png" />
       <h4 class="dialogue"></h4>
     </div>
   `,
   styles: [`
     .bubble {
-      position: fixed;
-      bottom: 300px;
-      right: 40px;
-      width: 300px;
+      position: relative;
+      left: 150px;
+      width: 450px;
+      height: 100%;
+      background-color: #eaeaea;
     }
     .dialogue {
       text-align: center;
-      max-width: 330px;
-      padding: 20px;
+      margin: 0 auto;
+      max-width: 400px;
+      margin-top: 50px;
+    }
+    #owl-avatar {
+      height: 250px;
+      position: relative;
+      top: 30px;
+      margin-left: 50px;
     }
   `]
 })

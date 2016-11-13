@@ -32,11 +32,11 @@ export class TreePageComponent implements AfterViewInit {
       amountSpent += transaction.amount; //this.amountSpent = queryObservable.
     }*/
 
-    
+
     // total amount spent is $12155.45
     // queryObservable.subscribe(queriedItems => {
       // this.amountSpent = queriedItems.forEach;
-      // console.log(queriedItems);  
+      // console.log(queriedItems);
 // });
     // console.log(queryObservable);
     // this.amountSpent = -12155.45;
@@ -52,8 +52,7 @@ export class TreePageComponent implements AfterViewInit {
   treeHeight: string;
   tree: Tree;
   leaves: Array<Leaf>;
-  resizeHandler: EventListener;
-  intervalHandler: Function;
+  fallLeaves: Function;
 
   ngOnInit() {
     //this.treeHeight = "height: " + (window.innerHeight - 250) + " px";
@@ -69,35 +68,20 @@ export class TreePageComponent implements AfterViewInit {
     }
 
     this.drawLeaves();
-    //setInterval(fallLeaf(leaves), 1000);
 
     var timer;
 
-    this.resizeHandler = function(e) {
-      clearTimeout(timer);
-      timer = setTimeout(this.doneResizing, 100); // throttling
-    }.bind(this);
 
-    this.intervalHandler = function(e) {
-      var noOfLeaves: number = 3;
-      //var removed = [];
+  // given a transaction, this falls
+    this.fallLeaves = function(e) {
+      var noOfLeaves: number = 15;
       // pick out the leaves
       for(var i = 0; i < noOfLeaves; i++) {
-        var nextIndex: number =  Math.floor(Math.random() * (this.leaves.length + 1));
+        var nextIndex: number =  Math.floor(Math.random() * this.leaves.length);
         this.leaves[nextIndex].status = true;
-        //removed.push(nextIndex);
-        //this.leaves.splice(nextIndex, 1);
-        //this.leaves.pop();
-        //console.log(this.leaves[nextIndex]);
       }
-      // for(var i = 0; i < removed.length; i++) {
-      //   this.leaves.splice(removed[i], 1);
-      // }
     }.bind(this);
-
-    window.addEventListener('resize', this.resizeHandler);
-
-    window.setInterval(this.intervalHandler, 1000);
+    window.setTimeout(this.fallLeaves, 1000);
     //setInterval(fall)
   }
 
@@ -125,7 +109,7 @@ export class TreePageComponent implements AfterViewInit {
       for (var r : any = 90; r >= 0; r -= 50) {
         for (var theta: any = 0; theta < 2 * Math.PI; theta += Math.PI / 6) {
           var p:any = branchPoints[i];
-          var x = this.tree.treeSide + p.x + r * Math.cos(theta) - 30;
+          var x = this.tree.treeSide + p.x + r * Math.cos(theta) + 380;
           var y = this.tree.treeTop + p.y + r * Math.sin(theta) - 50;
           var rotation = Math.random() * 360;
           var zIn = Math.random() * 10;
@@ -134,19 +118,6 @@ export class TreePageComponent implements AfterViewInit {
         }
       }
     }
-  }
-
-  // given a transaction, this falls
-  fallLeaf() {
-    var noOfLeaves: number = 10;
-    // pick out the leaves
-    for(var i = 0; i < noOfLeaves; i++) {
-      var nextIndex: number =  Math.floor(Math.random() * this.leaves.length);
-      this.leaves[nextIndex].status = true;
-      console.log(this.leaves[nextIndex]);
-    }
-    // animate them falling
-    // make them clickable?
   }
 
   doneResizing() {
