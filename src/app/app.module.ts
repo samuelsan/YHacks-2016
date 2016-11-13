@@ -11,6 +11,7 @@ import { SpeechBubbleComponent } from './speech-bubble.component'
 import { LeafComponent } from './leaf.component';
 import { TransactionDetailsComponent } from './transaction-details.component';
 import { LoginComponent } from './login.component';
+import { TreePageComponent } from './tree-page.component';
 
 
 // Must export the config
@@ -29,16 +30,28 @@ export const firebaseConfig = {
     SpeechBubbleComponent,
     LeafComponent,
     TransactionDetailsComponent,
-    LoginComponent
+    LoginComponent,
+    TreePageComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot([{
+    RouterModule.forRoot([
+    {
+      path: '',
+      redirectTo: '/login',
+      pathMatch: 'full'
+    },
+    {
       path: 'login',
       component: LoginComponent
-    }])
+    },
+    {
+      path: 'home',
+      component: TreePageComponent
+    }
+    ]),
     AngularFireModule.initializeApp(firebaseConfig)
   ],
   providers: [],

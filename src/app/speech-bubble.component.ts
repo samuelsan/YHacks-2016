@@ -10,9 +10,9 @@ import { Component, Input } from '@angular/core'
   `,
   styles: [`
     .bubble {
-      position: absolute;
-      top: 0;
-      left: 0;
+      position: fixed;
+      bottom: 300px;
+      right: 120px;
     }
     .dialogue {
       text-align: center;
