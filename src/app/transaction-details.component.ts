@@ -2,6 +2,12 @@ import { Component, Input } from '@angular/core';
 import {AngularFire, FirebaseListObservable} from 'angularfire2';
 import { ReversePipe } from './reverse.pipe';
 
+export class Budget {
+  amount:number;
+  dateStart:string;
+  dateEnd:string;
+}
+
 @Component ({
   selector: 'transaction-details',
   template: `
@@ -14,7 +20,7 @@ import { ReversePipe } from './reverse.pipe';
         <th>Date</th>
       </tr>
       <tr *ngFor="let transaction of transactions | async; let i = index">
-        <template [ngIf]="i>=0">
+        <template [ngIf]="i>=400">
           <td>{{ transaction.name }}</td>
           <td>{{ transaction.category }}</td>
           <td>{{ transaction.amount }}</td>
@@ -35,14 +41,9 @@ import { ReversePipe } from './reverse.pipe';
   `]
 })
 
-export class Budget {
-  amount:number;
-  dateStart:string;
-  dateEnd:string;
-}
-
 export class TransactionDetailsComponent {
   transactions: FirebaseListObservable<any[]>;
+  //testTransac: FirebaseListObservable<any[]>;
   // transaction1: FirebaseObjectObservable<any>;
   // transaction2: FirebaseObjectObservable<any>;
   // transaction3: FirebaseObjectObservable<any>;
@@ -66,10 +67,6 @@ export class TransactionDetailsComponent {
       }
     });
 
-    //for(var i = 0; i < transactions.size(); )
 
-
-
-  // @Input() transactions: Transaction;
   }
 }
