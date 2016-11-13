@@ -21,6 +21,11 @@ export const firebaseConfig = {
     databaseURL: 'https://yhacks-2016.firebaseio.com',
     storageBucket: '',
     messagingSenderId: '233330134232'
+    // apiKey: "AIzaSyDV_iUySUSn6bJ-vfD3o4dYHEqerOTtrCg",
+    // authDomain: "yhacks-5fb61.firebaseapp.com",
+    // databaseURL: "https://yhacks-5fb61.firebaseio.com",
+    // storageBucket: "",
+    // messagingSenderId: "140954188440"
 };
 
 @NgModule({

@@ -7,6 +7,7 @@ export class Tree {
   treeRef: HTMLElement;
   treeTop: number;
   treeSide: number;
+  // amountSpent: number;
 }
 
 @Component({
@@ -16,15 +17,37 @@ export class Tree {
 })
 
 export class TreePageComponent implements AfterViewInit {
-  items: FirebaseListObservable<any[]>;
+  // transactions: FirebaseListObservable<any[]>;
   owlMood: string;
   constructor(af: AngularFire) {
-    this.items = af.database.list('transactions/0');  // example for accessing first transaction
+    // this.items = af.database.list('transactions/0');  // example for accessing first transaction
+
+    const queryObservable = af.database.list('/transactions', {
+    query: {
+      orderByChild: 'amount',
+    }
+    });
+
+    /*for (var i=0; i<5; i++) {
+      amountSpent += transaction.amount; //this.amountSpent = queryObservable.
+    }*/
+
+    
+    // total amount spent is $12155.45
+    // queryObservable.subscribe(queriedItems => {
+      // this.amountSpent = queriedItems.forEach;
+      // console.log(queriedItems);  
+// });
+    // console.log(queryObservable);
+    // this.amountSpent = -12155.45;
     this.owlMood = "happy";
   }
   setOwlMood(owlMood: string): void {
     this.owlMood = owlMood;
   }
+  // setAmountSpent(amountSpent: number) : void{
+  //   amountSpent = amountSpent;
+  // }
   // leafSelector: LeafComponent;
   treeHeight: string;
   tree: Tree;
