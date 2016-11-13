@@ -23,6 +23,10 @@ export class TreePageComponent implements AfterViewInit {
   // transactions: FirebaseListObservable<any[]>;
   owlMood: string;
   transactions: Transaction[];
+  leafVal:number;
+  leavesTotal:number;
+  leavesFallen:number;
+  af:AngularFire;
 
   //constructor(af: AngularFire, private transactionService: TransactionService) {
     //this.items = af.database.list('transactions/0');  // example for accessing first transaction
@@ -34,6 +38,8 @@ export class TreePageComponent implements AfterViewInit {
       orderByChild: 'amount',
     }
     });
+
+    this.af = af;
 
     /*for (var i=0; i<5; i++) {
       amountSpent += transaction.amount; //this.amountSpent = queryObservable.
@@ -48,7 +54,7 @@ export class TreePageComponent implements AfterViewInit {
     // console.log(queryObservable);
     // this.amountSpent = -12155.45;
 
-    this.owlMood = "happy";
+
   }
 
   getTransactions(): void {
@@ -88,9 +94,9 @@ export class TreePageComponent implements AfterViewInit {
 
     var timer;
 
-
     this.pluckLeaves = function(e) {
-      var noOfLeaves: number = 15;
+      var noOfLeaves: number = this.leavesFallen;
+      console.log("no of leaves", noOfLeaves);
       //var removed = [];
       // pick out the leaves
       for(var i = 0; i < noOfLeaves; i++) {
@@ -99,8 +105,42 @@ export class TreePageComponent implements AfterViewInit {
       }
     }.bind(this);
 
-    window.setTimeout(this.pluckLeaves, 1000);
-    //setInterval(fall)
+    window.addEventListener('resize', this.resizeHandler);
+
+    // find the list of transactions up to a point
+    var totalBalance:number = 5000; // assume 5000 dollars for easier demo'ing
+    this.af.database.list('/transactions', { preserveSnapshot: true})
+    .subscribe(snapshots=>{
+        var newTransacs:number = 0;
+        snapshots.forEach(snapshot => {
+          //console.log(snapshot.key, snapshot.val());
+          var nextTransaction = snapshot.val();
+          newTransacs += nextTransaction.amount;
+        });
+        // find the value of each leaf in USD
+        this.leafVal = totalBalance / (16 * 2 * 12); // amount of money per leaf
+        this.leavesTotal = Math.floor(5000 / this.leafVal);
+        this.leavesFallen = Math.floor(newTransacs / this.leafVal) * -1;
+        console.log("value of each leaf ", this.leafVal);
+        console.log("how many leaves on the tree total ", this.leavesTotal);
+        console.log("how many leaves need to fall ", this.leavesFallen);
+
+        // pass values out of callback
+        if(this.leavesFallen >= 0)
+          window.setTimeout(this.pluckLeaves, 1000);
+
+        // happy, neutral, sad, crying
+        var owlMoods = [0.25, 0.5, 0.75, 1];
+        var balanceStatus = (this.leavesTotal - this.leavesFallen) / this.leavesTotal;
+        if(balanceStatus >= 0 && balanceStatus < owlMoods[0])
+          this.owlMood = "happy";
+        else if(balanceStatus >= owlMoods[0] && balanceStatus < owlMoods[1])
+          this.owlMood = "neutral";
+        else if(balanceStatus >= owlMoods[1] && balanceStatus < owlMoods[2])
+          this.owlMood = "sad";
+        else if(balanceStatus >= owlMoods[3])
+          this.owlMood = "crying";
+    });
   }
 
   drawLeaves() {

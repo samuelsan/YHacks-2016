@@ -43,6 +43,7 @@ export class Budget {
 
 export class TransactionDetailsComponent {
   transactions: FirebaseListObservable<any[]>;
+  //testTransac: FirebaseListObservable<any[]>;
   // transaction1: FirebaseObjectObservable<any>;
   // transaction2: FirebaseObjectObservable<any>;
   // transaction3: FirebaseObjectObservable<any>;
@@ -66,10 +67,6 @@ export class TransactionDetailsComponent {
       }
     });
 
-    //for(var i = 0; i < transactions.size(); )
 
-
-
-  // @Input() transactions: Transaction;
   }
 }
