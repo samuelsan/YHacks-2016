@@ -5,7 +5,7 @@ import { Component, Input } from '@angular/core'
   template: `
     <div class="bubble">
       <owl-img [mood]="owlMood"></owl-img>
-      <h4 class="dialogue">Orwell: {{dialogue}}</h4>
+      <h4 class="dialogue"></h4>
     </div>
   `,
   styles: [`
@@ -23,6 +23,5 @@ import { Component, Input } from '@angular/core'
 })
 
 export class SpeechBubbleComponent {
-  @Input() dialogue: String;
   @Input() owlMood: string;
 }

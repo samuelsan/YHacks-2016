@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { LeafComponent, Leaf } from './leaf.component';
+declare var $:any;
 
 export class Tree {
   treeRef: HTMLElement;
@@ -13,7 +14,7 @@ export class Tree {
   styleUrls: ['./app.component.css'],
 })
 
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
   owlMood: string;
   constructor() {
     this.owlMood = "happy";
@@ -102,5 +103,15 @@ export class AppComponent {
     }
     this.leaves.length = 0;
     this.drawLeaves();
+  }
+
+  ngAfterViewInit() {
+    $(function(){
+        console.log($(".dialogue"));
+        $(".dialogue").typed({
+          strings: ["Hi I'm Orwell.", "It's so nice to meet you."],
+          typeSpeed: 80
+        });
+    });
   }
 }
