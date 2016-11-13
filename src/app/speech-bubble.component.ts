@@ -12,7 +12,8 @@ import { Component, Input } from '@angular/core'
     .bubble {
       position: fixed;
       bottom: 300px;
-      right: 120px;
+      right: 40px;
+      width: 300px;
     }
     .dialogue {
       text-align: center;

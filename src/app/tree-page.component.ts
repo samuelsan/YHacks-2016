@@ -113,8 +113,6 @@ export class TreePageComponent implements AfterViewInit {
     }
   }
 
-
-
   // given a transaction, this falls
   fallLeaf() {
     var noOfLeaves: number = 10;
@@ -147,8 +145,10 @@ export class TreePageComponent implements AfterViewInit {
         console.log($(".dialogue"));
         $(".dialogue").typed({
           strings: ["Hi I'm Orwell.", "It's so nice to meet you!"],
+          showCursor: false,
           typeSpeed: 80
         });
     });
+    $(".typed-cursor").remove();
   }
 }
