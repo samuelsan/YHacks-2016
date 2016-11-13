@@ -9,6 +9,7 @@ export class Tree {
   treeRef: HTMLElement;
   treeTop: number;
   treeSide: number;
+  // amountSpent: number;
 }
 
 @Component({
@@ -19,12 +20,34 @@ export class Tree {
 })
 
 export class TreePageComponent implements AfterViewInit {
-  items: FirebaseListObservable<any[]>;
+  // transactions: FirebaseListObservable<any[]>;
   owlMood: string;
   transactions: Transaction[];
 
-  constructor(af: AngularFire, private transactionService: TransactionService) {
-    this.items = af.database.list('transactions/0');  // example for accessing first transaction
+  //constructor(af: AngularFire, private transactionService: TransactionService) {
+    //this.items = af.database.list('transactions/0');  // example for accessing first transaction
+  constructor(af: AngularFire) {
+    // this.items = af.database.list('transactions/0');  // example for accessing first transaction
+
+    const queryObservable = af.database.list('/transactions', {
+    query: {
+      orderByChild: 'amount',
+    }
+    });
+
+    /*for (var i=0; i<5; i++) {
+      amountSpent += transaction.amount; //this.amountSpent = queryObservable.
+    }*/
+
+
+    // total amount spent is $12155.45
+    // queryObservable.subscribe(queriedItems => {
+      // this.amountSpent = queriedItems.forEach;
+      // console.log(queriedItems);
+// });
+    // console.log(queryObservable);
+    // this.amountSpent = -12155.45;
+
     this.owlMood = "happy";
   }
 
@@ -37,12 +60,15 @@ export class TreePageComponent implements AfterViewInit {
     this.owlMood = owlMood;
   }
 
+  // setAmountSpent(amountSpent: number) : void{
+  //   amountSpent = amountSpent;
+  // }
   // leafSelector: LeafComponent;
   treeHeight: string;
   tree: Tree;
   leaves: Array<Leaf>;
   resizeHandler: EventListener;
-  intervalHandler: Function;
+  pluckLeaves: Function;
 
   ngOnInit() {
     this.getTransactions();
@@ -69,7 +95,7 @@ export class TreePageComponent implements AfterViewInit {
       timer = setTimeout(this.doneResizing, 100); // throttling
     }.bind(this);
 
-    this.intervalHandler = function(e) {
+    this.pluckLeaves = function(e) {
       var noOfLeaves: number = 3;
       //var removed = [];
       // pick out the leaves
@@ -88,7 +114,7 @@ export class TreePageComponent implements AfterViewInit {
 
     window.addEventListener('resize', this.resizeHandler);
 
-    window.setInterval(this.intervalHandler, 1000);
+    window.setTimeout(this.pluckLeaves, 1000);
     //setInterval(fall)
   }
 
@@ -177,7 +203,6 @@ export class TreePageComponent implements AfterViewInit {
           typeSpeed: 80
         });
     });
-
 
   }
 }
