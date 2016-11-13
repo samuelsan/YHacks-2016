@@ -1,7 +1,9 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { LeafComponent, Leaf } from './leaf.component';
-declare var $:any;
+import { Transaction } from './transaction';
+import { TransactionService } from './transaction.service';
 import {AngularFire, FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2';
+declare var $:any;
 
 export class Tree {
   treeRef: HTMLElement;
@@ -12,19 +14,29 @@ export class Tree {
 @Component({
   selector: 'tree-page',
   templateUrl: './tree-page.component.html',
-  styleUrls: ['./tree-page.component.css']
+  styleUrls: ['./tree-page.component.css'],
+  providers: [TransactionService]
 })
 
 export class TreePageComponent implements AfterViewInit {
   items: FirebaseListObservable<any[]>;
   owlMood: string;
-  constructor(af: AngularFire) {
+  transactions: Transaction[];
+
+  constructor(af: AngularFire, private transactionService: TransactionService) {
     this.items = af.database.list('transactions/0');  // example for accessing first transaction
     this.owlMood = "happy";
   }
+
+  getTransactions(): void {
+    //this.transactions = this.transactionService.getTransactions()
+      //  .then(transactions => this.transactions = transactions);;
+  }
+
   setOwlMood(owlMood: string): void {
     this.owlMood = owlMood;
   }
+
   // leafSelector: LeafComponent;
   treeHeight: string;
   tree: Tree;
@@ -33,6 +45,8 @@ export class TreePageComponent implements AfterViewInit {
   intervalHandler: Function;
 
   ngOnInit() {
+    this.getTransactions();
+
     //this.treeHeight = "height: " + (window.innerHeight - 250) + " px";
     this.leaves = [];
     var tRef:HTMLElement = document.getElementById("tree");
@@ -143,12 +157,27 @@ export class TreePageComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
+    // push the transaction table programmatically below the page
+    $(".details-box").css({top: window.innerHeight + 220});
+
+    // button for scrolling
+    $(function() {
+  	$('a[href*=#]').on('click', function(e) {
+  		e.preventDefault();
+  		$('html, body').animate({ scrollTop: $($(this).attr('href')).offset().top}, 500, 'linear');
+    	});
+    });
+
+    // on first login, want to display a short tutorial
     $(function(){
         console.log($(".dialogue"));
         $(".dialogue").typed({
-          strings: ["Hi I'm Orwell.", "It's so nice to meet you!"],
+          strings: ["Hi I'm Orwell.", "It's so nice to meet you!", ""],
+          showCursor: false,
           typeSpeed: 80
         });
     });
+
+
   }
 }

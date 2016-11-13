@@ -11,6 +11,7 @@ import { Component, Input, OnInit } from '@angular/core';
       position: fixed;
       right: 15px;
       bottom: 15px;
+      z-index: 1000;
     }
   `]
 })

@@ -11,13 +11,15 @@ import { Component, Input } from '@angular/core'
   styles: [`
     .bubble {
       position: fixed;
-      bottom: 300px;
-      right: 120px;
+      bottom: 280px;
+      right: 80px;
+      z-index: 1000;
     }
     .dialogue {
       text-align: center;
       max-width: 330px;
       padding: 20px;
+      z-index: 1000;
     }
   `]
 })

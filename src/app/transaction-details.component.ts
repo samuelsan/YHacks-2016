@@ -4,7 +4,7 @@ import { Component, Input } from '@angular/core'
   selector: 'transaction-details',
   template: `
     <div class="details-box table">
-      <h2>Transactions</h2>
+      <h2>Recent Transactions</h2>
       <tr>
         <th>Name</th>
         <th>Account ID</th>
@@ -20,8 +20,7 @@ import { Component, Input } from '@angular/core'
       top: 430px;
       left: 50px;
       width: 450px;
-      height: 370px;
-      border: 1px solid gray;
+      height: 400px;
       padding: 20px;
     }
   `]
