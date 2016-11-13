@@ -8,10 +8,8 @@ import { Component, Input, OnInit } from '@angular/core';
   styles: [`
     #owl-avatar {
       height: 250px;
-      position: fixed;
-      right: 15px;
-      bottom: 15px;
-      z-index: 1000;
+      position: relative;
+      top: 30px;
     }
   `]
 })

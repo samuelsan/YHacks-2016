@@ -4,7 +4,7 @@ import { Component, Input } from '@angular/core'
   selector: 'speech-bubble',
   template: `
     <div class="container">
-      <img id="owl-avatar" src="../assets/happy-owl.png" />
+      <owl-img [mood]="owlMood"></owl-img>
       <div class="bubble">
         <h4 class="dialogue"></h4>
       </div>
@@ -55,11 +55,6 @@ import { Component, Input } from '@angular/core'
     .spending-list {
       font-size: 18px;
       margin-top: 15px;
-    }
-    #owl-avatar {
-      height: 250px;
-      position: relative;
-      top: 30px;
     }
   `]
 })

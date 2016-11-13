@@ -233,7 +233,7 @@ export class TreePageComponent implements AfterViewInit {
     $(function(){
         console.log($(".dialogue"));
         $(".dialogue").typed({
-          strings: ["You seem to be right on schedule. Keep up the good work!"],
+          strings: ["Please don't keep spending this way. I'm worried for the tree!"],
           showCursor: false,
           typeSpeed: 30
         });

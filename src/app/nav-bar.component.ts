@@ -7,8 +7,9 @@ import { Component, Input, OnInit } from '@angular/core';
       <div id="nav-bar">
         <icon [imageName]="'tree-icon'" [link]="'root'"></icon>
         <icon [imageName]="'transaction-icon'" [link]="'transactions'"></icon>
+        <icon [imageName]="'budget-icon'" [link]="'budget'"></icon>
       </div>
-      <speech-bubble></speech-bubble>
+      <speech-bubble [owlMood]="owlMood"></speech-bubble>
     </div>
   `,
   styles: [`
@@ -30,4 +31,5 @@ import { Component, Input, OnInit } from '@angular/core';
 
 export class NavBarComponent {
   @Input() section: string;
+  @Input() owlMood: string;
 }
