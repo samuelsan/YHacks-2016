@@ -1,13 +1,18 @@
 <nav-bar></nav-bar>
-<leaf *ngFor="let leaf of leaves"
-      [x]="leaf.x"
-      [y]="leaf.y"
-      [rotation]="leaf.rotation"
-      [zIn]="leaf.zIn"
-      [status]="leaf.status">
-</leaf>
-<img id="tree" src="../assets/tree.png" style={{treeheight}}/>
-<transaction-details></transaction-details>
+<section>
+  <leaf *ngFor="let leaf of leaves"
+        [x]="leaf.x"
+        [y]="leaf.y"
+        [rotation]="leaf.rotation"
+        [zIn]="leaf.zIn"
+        [status]="leaf.status">
+  </leaf>
+  <img id="tree" src="../assets/tree.png" style={{treeheight}}/>
+  <a></a>
+</section>
+<section>
+  <transaction-details></transaction-details>
+</section>
 
 <!-- <ul>
   <li class="text" *ngFor="let item of items | async">

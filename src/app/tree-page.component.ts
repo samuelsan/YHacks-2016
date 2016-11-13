@@ -1,7 +1,9 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { LeafComponent, Leaf } from './leaf.component';
-declare var $:any;
+import { Transaction } from './transaction';
+import { TransactionService } from './transaction.service';
 import {AngularFire, FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2';
+declare var $:any;
 
 export class Tree {
   treeRef: HTMLElement;
@@ -13,12 +15,17 @@ export class Tree {
 @Component({
   selector: 'tree-page',
   templateUrl: './tree-page.component.html',
-  styleUrls: ['./tree-page.component.css']
+  styleUrls: ['./tree-page.component.css'],
+  providers: [TransactionService]
 })
 
 export class TreePageComponent implements AfterViewInit {
   // transactions: FirebaseListObservable<any[]>;
   owlMood: string;
+  transactions: Transaction[];
+
+  //constructor(af: AngularFire, private transactionService: TransactionService) {
+    //this.items = af.database.list('transactions/0');  // example for accessing first transaction
   constructor(af: AngularFire) {
     // this.items = af.database.list('transactions/0');  // example for accessing first transaction
 
@@ -40,11 +47,19 @@ export class TreePageComponent implements AfterViewInit {
 // });
     // console.log(queryObservable);
     // this.amountSpent = -12155.45;
+
     this.owlMood = "happy";
   }
+
+  getTransactions(): void {
+    //this.transactions = this.transactionService.getTransactions()
+      //  .then(transactions => this.transactions = transactions);;
+  }
+
   setOwlMood(owlMood: string): void {
     this.owlMood = owlMood;
   }
+
   // setAmountSpent(amountSpent: number) : void{
   //   amountSpent = amountSpent;
   // }
@@ -52,9 +67,11 @@ export class TreePageComponent implements AfterViewInit {
   treeHeight: string;
   tree: Tree;
   leaves: Array<Leaf>;
-  fallLeaves: Function;
+  pluckLeaves: Function;
 
   ngOnInit() {
+    this.getTransactions();
+
     //this.treeHeight = "height: " + (window.innerHeight - 250) + " px";
     this.leaves = [];
     var tRef:HTMLElement = document.getElementById("tree");
@@ -72,16 +89,17 @@ export class TreePageComponent implements AfterViewInit {
     var timer;
 
 
-  // given a transaction, this falls
-    this.fallLeaves = function(e) {
+    this.pluckLeaves = function(e) {
       var noOfLeaves: number = 15;
+      //var removed = [];
       // pick out the leaves
       for(var i = 0; i < noOfLeaves; i++) {
         var nextIndex: number =  Math.floor(Math.random() * this.leaves.length);
         this.leaves[nextIndex].status = true;
       }
     }.bind(this);
-    window.setTimeout(this.fallLeaves, 1000);
+
+    window.setTimeout(this.pluckLeaves, 1000);
     //setInterval(fall)
   }
 
@@ -135,14 +153,50 @@ export class TreePageComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
+    // push the transaction table programmatically below the page
+    $(".details-box").css({ top: window.innerHeight });
+
+    $('#tree-icon').on('click', function(event) {
+        // Prevent default anchor click behavior
+        event.preventDefault();
+        var hash = this.hash;
+        $('html, body').animate({ scrollTop: 0 }, 900);
+        window.location.hash = hash;
+      });
+
+    $('#transaction-icon').on('click', function(event) {
+      event.preventDefault();
+      var hash = this.hash;
+      $('html, body').animate({ scrollTop: $(document).height()}, 1000);
+      window.location.hash = hash;
+    });
+
+
+    $('.scroll').on('click', function(event) {
+
+      event.preventDefault();
+
+      // Store hash
+      var hash = this.hash;
+
+      $('html, body').animate({
+         scrollTop: $(hash).offset().top
+      }, 900, function(){
+
+          // Add hash (#) to URL when done scrolling (default click behavior)
+          window.location.hash = hash;
+
+       });
+    });
+
+    // on first login, want to display a short tutorial
     $(function(){
         console.log($(".dialogue"));
         $(".dialogue").typed({
-          strings: ["Hi I'm Orwell.", "It's so nice to meet you!"],
+          strings: ["You seem to be right on schedule. Keep up the good work!"],
           showCursor: false,
-          typeSpeed: 80
+          typeSpeed: 30
         });
     });
-    $(".typed-cursor").remove();
   }
 }
