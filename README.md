@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Yhacks2016
 
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.19-3.
@@ -36,4 +35,3 @@ To get more help on the `angular-cli` use `ng --help` or go check out the [Angul
 Visual representation of a money tree with leaves that represent user's budget. Leaves will fall as the user spends money and the leaves will be colour-coordinated according to the category of their transaction.
 
 Intuit's Mint API will be used for User Information.
->>>>>>> b6742157a2599cb7b30d3d1b905ef0305050d900
